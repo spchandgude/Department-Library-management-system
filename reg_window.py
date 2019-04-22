@@ -1,7 +1,64 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-from members import add_new_member
+from tkinter import ttk
+from members import add_new_member, display_all_members1, search_member_by_name1
+
+def clearTable(tree):
+    x = tree.get_children()
+    for item in x:
+        tree.delete(item)
+
+
+
+def start_listAll_members():
+    reg_win = tk.Tk()
+    reg_win.title("All members")
+    reg_win.geometry("900x600+300+300")
+    allMembers=display_all_members1()
+
+
+    def searchMem():
+        clearTable(tree)
+        searchedMembers= search_member_by_name1(searchField.get())
+
+        if searchedMembers == -1:
+            messagebox.showinfo("","Member Not Found")
+        else:
+            for member in searchedMembers:
+                tree.insert('',0,text='', value = member)
+
+
+    Label(reg_win, text="Search Member :").pack()
+    searchField = Entry(reg_win)
+    searchBy = "full_name"
+    searchField.pack()
+    Button(reg_win, text="Search", command=searchMem).pack()
+    Button(reg_win, text="Exit", command=reg_win.destroy)
+
+
+
+    tree = ttk.Treeview(reg_win)
+
+    tree["columns"]=("member_type", "member_id", "full_name", "mobile_number", "email_id")
+
+    tree.column("member_type", width=100)
+    tree.column("member_id", width=100)
+    tree.column("full_name", width=150)
+    tree.column("mobile_number", width=100)
+    tree.column("email_id", width=100)
+    tree.heading("member_type", text="Type")
+    tree.heading("member_id", text="Member ID")
+    tree.heading("full_name", text="Name")
+    tree.heading("mobile_number", text="Mobile No.")
+    tree.heading("email_id",text="Email ID")
+
+    for member in allMembers:
+        tree.insert('',0, text='', value = member)
+    tree.pack()
+    reg_win.mainloop()
+
+    
 
 def start_reg_win():
 
@@ -11,7 +68,7 @@ def start_reg_win():
     reg_win.geometry('900x600')
     member_types_array = ['Student','Faculty']
     def register_user():
-        
+
         fn=reg_win_fname.get() + " " + reg_win_lname.get()
         add_new_member(member_types_array[v.get()], reg_win_mno.get(), reg_win_email.get(),fn)
 
