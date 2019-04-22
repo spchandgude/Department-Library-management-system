@@ -1,7 +1,7 @@
 import datetime
 from tkinter import *
 import time
-from datetime import datetime 
+from datetime import datetime
 from tkinter import messagebox
 import os
 import mysql.connector as ms
@@ -11,13 +11,14 @@ from members import *
 from books import *
 from reg_window import *
 from book_window import *
+from borrow_window import *
 
 
 
 """Setting up the geometry and the title"""
 root = Tk()
 root.title("Library management system")
-root.geometry('1350x650+0+0')
+root.geometry('1600x800+0+0')
 """set"""
 
 
@@ -53,17 +54,29 @@ lblName.grid(row = 0, column = 0)
 lbladdress = Label(fla, text = "MEMBERS",bg="lightgrey",fg = "red", font = ('arial',30,'bold'),bd = 20)
 lbladdress.grid(row = 0, column = 2)
 
-addbook = Button(fla,text = 'Add book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1,command = start_addbook_win).grid(row = 1, column = 1)
+lbladdress = Label(fla, text = "Utility",bg="lightgrey",fg = "red", font = ('arial',30,'bold'),bd = 20)
+lbladdress.grid(row = 0, column = 3)
 
-searchbook = Button(fla,text = 'Search book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1,command = start_searchBook_win).grid(row = 2, column = 1)
 
-allbooks = Button(fla,text = 'All books', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1,command = start_listAllbooks_win).grid(row = 3, column = 1)
+#buttons
 
-updatebooks = Button(fla,text = 'Update book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1).grid(row = 4, column = 1)
+act_addbook_win = Button(fla,text = 'Add book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16), width = 15, height = 1,command = start_addbook_win).grid(row = 1, column = 0)
 
-registermember = Button(fla,text = 'Register member', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1,command = start_reg_win).grid(row = 1, column = 3)
+act_searchBook_win = Button(fla,text = 'Search book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16), width = 15, height = 1,command = start_searchBook_win).grid(row = 2, column = 0)
 
-exitl = Button(flb,text = 'Exit', padx = 16, pady = 16, bd =8, fg = "black",bg = "red", font = ('arial',16,'bold'), width = 20, height = 1).grid(row = 0, column = 1)
+act_listAllbooks_win = Button(fla,text = 'All books', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16), width = 15, height = 1,command = start_listAllbooks_win).grid(row = 3, column = 0)
+
+#act_up8Book_win = Button(fla,text = 'Update book', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height = 1).grid(row = 4, column = 0)
+
+act_registerMember_win = Button(fla,text = 'Register member', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16), width = 15, height = 1,command = start_reg_win).grid(row = 1, column = 2)
+act_allMembers_win = Button(fla,text = 'Search Member', padx = 16, pady = 16, bd =8, fg = "black",bg = "lightyellow", font = ('arial',16), width = 15, height = 1,command = start_listAll_members).grid(row = 2, column = 2)
+
+
+act_issueBook_win = tk.Button(fla, text="Issue Book", padx=16, pady=16, bd=8, fg="black", bg="lightyellow", font=('arial',16,'bold'),width=15, height=1, command = start_issueBook_win).grid(row=1, column=3)
+act_returnBook_win = tk.Button(fla,text="Return Book",padx = 16, pady = 16, bd=8, fg = "black", bg = "lightyellow", font = ('arial',16,'bold'), width = 15, height=1, command = start_returnBook_win).grid(row =2, column=3)
+act_unreturned_books = tk.Button(fla,text="Unreturned Books",padx = 16, pady = 16, bd=8, fg = "black", bg = "lightyellow", font = ('arial',16), width = 15, height=1, command = start_unreturnedBooks_win).grid(row =3, column=3)
+
+exit = Button(flb,text = 'Exit', padx = 16, pady = 16, bd =8, fg = "black",bg = "red", font = ('arial',16,'bold'), width = 20, height = 1, command= root.destroy).grid(row = 0, column = 1)
 
 
 
@@ -82,7 +95,7 @@ lblinfo.grid(row = 0, column = 0)
 
 lblmin = Label(Topframe, font = ('arial',15),fg="Blue", text = "(An Autonomous institute affiliated to SPPU)")
 lblmin.grid(row = 1,column = 0)
-lblmin = Label(Topframe, font = ('arial',15), text = "Department of Computer Science")
+lblmin = Label(Topframe, font = ('arial',15), text = "School of Computer Engineering and Technology")
 lblmin.grid(row = 2,column = 0)
 
 
