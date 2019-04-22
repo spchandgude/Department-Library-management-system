@@ -1,6 +1,24 @@
 import mysql.connector as ms
 from db_credentials import setu
 
+def is_book_available(book_acn):
+    status = setu.cursor()
+    print(book_acn)
+    query = "SELECT is_available from books where accession_number =\'"+book_acn+"\';";
+    print(query)
+    #try
+
+    status.execute(query);
+    state = status.fetchall()
+    print(state)
+    return state[0][0];
+    #if state[0][0] ==0:
+    #    return 0;
+    #else:
+    #    return ;
+
+
+
 def add_new_book(acn, title, price, author, publisher):
     add = setu.cursor()
     query = "INSERT INTO books(accession_number, title, price, author, publisher) values(%s,%s,%s,%s,%s)"
@@ -17,7 +35,7 @@ def add_new_book(acn, title, price, author, publisher):
 
 def search_book(searchby,searchfor):
     arz = setu.cursor()
-    query = "SELECT accession_number, title, author, shelf_no, publisher, price from books where " + searchby + "=" + "\'" + searchfor + "\'"
+    query = "SELECT accession_number, title, author, shelf_no, publisher, price from books where "+searchby+" like \'"+searchfor+"%\';"
     print(query)
     arz.execute(query)
     book = arz.fetchall()
