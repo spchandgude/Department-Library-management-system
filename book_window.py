@@ -17,10 +17,14 @@ def clearTable(tree):
 
 def start_searchBook_win():
     book_win = tk.Tk()
+    #book_win.overrideredirect(1)
     book_win.title("Search Book")
     book_win.geometry("960x600")
     v=IntVar()
 
+    def selectItem(a):
+        CurItem = tree.focus()
+        print(tree.item(CurItem))
 
     def searchit():
         clearTable(tree)
@@ -44,12 +48,10 @@ def start_searchBook_win():
     popupMenu = OptionMenu(book_win, tkvar, *searchBy)
     searchField.pack()
     popupMenu.pack()
-
-
-#    Button(book_win, text='Search',command=searchit).grid(row=5, column=3, sticky = W, pady=4)
+    #   Button(book_win, text='Search',command=searchit).grid(row=5, column=3, sticky = W, pady=4)
     Button(book_win, text='Search',command=searchit).pack()
-
-#Book table
+    Button(book_win, text='Exit', command = book_win.destroy)
+    #Book table
     tree = ttk.Treeview(book_win)
     tree["column"] = ("acn", "title", "author", "shlfno.", "publisher", "price")
     tree.column("acn", width=100)
@@ -64,12 +66,72 @@ def start_searchBook_win():
     tree.heading("shlfno.", text="Shelf no")
     tree.heading("publisher", text="Publisher")
     tree.heading("price", text="Price")
-
+    tree.bind('<ButtonRelease-1>', selectItem)
     tree.pack()
-
     mainloop()
 
 
+
+
+
+#def start_upd8Book_win():
+#    book_win = tk.Tk()
+    #book_win.overrideredirect(1)
+#    book_win.title("Search Book")
+#    book_win.geometry("960x600")
+#    v=IntVar()
+#
+#    def selectItem(a):
+#        CurItem = tree.focus()
+#        print(tree.item(CurItem))
+#
+#        Label(book_win,text="Title:").pack(side=LEFT)
+#        new_title = Entry(book_win)
+#
+#        new_title.pack(side=LEFT)
+#        #return tree.item(CurItem)
+#
+#    def searchit():
+#        clearTable(tree)
+#        print(tkvar.get())
+#        searchedBook = search_book(tkvar.get(), searchField.get())
+#        if searchedBook == -1:
+#            messagebox.showinfo("","Book Not Found")
+#        else:
+#            for book in searchedBook:
+#                tree.insert('',0, text='', value = book
+#
+#    tkvar = StringVar(book_win)
+#    Label(book_win, text="Search Book By :").pack()
+#    searchField = Entry(book_win)
+#    searchBy = ['title', 'accession_number', 'author', 'publisher']
+#    tkvar.set('title')
+#
+#    popupMenu = OptionMenu(book_win, tkvar, *searchBy)
+#    searchField.pack()
+#    popupMenu.pack()
+#
+#
+#    #Button(book_win, text='Search',command=searchit).grid(row=5, column=3, sticky = W, pady=4)
+#    Button(book_win, text='Search',command=searchit).pack()
+#    Button(book_win, text='Exit', command = book_win.destroy)
+#    #Book table
+#    tree = ttk.Treeview(book_win)
+#    tree["column"] = ("acn", "title", "author", "shlfno.", "publisher", "price")
+#    tree.column("acn", width=100)
+#    tree.column("title", width=150)
+#    tree.column("author", width=100)
+#    tree.column("shlfno.", width=80)
+#    tree.column("publisher", width=100)
+#    tree.column("price", width=100)
+#    tree.heading("acn", text="Accession No.")
+#    tree.heading("title", text="Title")
+#    tree.heading("author", text="Author")
+#    tree.heading("shlfno.", text="Shelf no")
+#    tree.heading("publisher", text="Publisher")
+##    tree.bind('<ButtonRelease-1>', selectItem)
+#    tree.pack()
+#    mainloop()
 
 
 
@@ -114,7 +176,8 @@ def start_listAllbooks_win():
 def start_addbook_win():
     book_win = tk.Tk()
     book_win.title("Add New Book")
-    book_win.geometry("900x600")
+    book_win.geometry("900x600+300+300")
+    #book_win.overrideredirect(1)  ## removes the title bar and min/max/close default options
     def addBook():
         status = add_new_book(book_win_acno.get(), book_win_title.get(), book_win_price.get(), book_win_author.get(), book_win_pub.get())
         if status!=0:
